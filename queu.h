@@ -41,6 +41,7 @@ int jumlah_harga_by_tempat_cuci[2]; // JUMLAH TOTAL PEMASUKAN BERDASARKAN TEMPAT
 
 // DEKLRASI MODUL
 int main_antrian();
+int home();
 void tombol_selanjutnya();
 void header();
 void cancel_kendaraan();
