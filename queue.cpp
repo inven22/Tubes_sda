@@ -142,7 +142,7 @@ int main_antrian(){
 		printf("\n");
 		printf("\n");
 		header();
-		printf("| 3.  Tambah waktu                    |\n",durasi_simulasi);
+		printf("| 3.  Skip istirahat                    |\n",durasi_simulasi);
 	
 
 		printf("\n\n");
@@ -174,7 +174,7 @@ int main_antrian(){
 			printf("| 4.  Tambah waktu                                      |\n",durasi_simulasi);
 			printf("| 5.  Cari plat nomor dalam antrian                     |\n");
 			printf("| 6.  Cancel antrian                                    |\n");
-			printf("| 7.  Selesai                                           |\n");
+			printf("| 7.  Kembali ke Home                                   |\n");
 		
 
 			printf("\n\n");
@@ -239,21 +239,8 @@ int main_antrian(){
 				
 
 					break;
-            	case 7:
-                 	pil = cek_antrian();
-					if(pil != 0){ // JIKA RETURN NILAI NYA ADALAH 0, MAKA ARTINYA SUDAH TIDAK ADA MOBIL YANG DI CUCI ATAU MENGANTRI
-						printf("Masih ada antrian.\n");
-						tombol_selanjutnya(); // MODUL UNTUK ALTERNATIF BY PASS
-
-						main_antrian(); // MODUL UTAMA
-						
-						break;	
-					}
-					
-					system("cls");
-                   
-					out();
-					
+            	       case 7:
+                 	                home(); 
 					break;
 			
 			
@@ -272,8 +259,8 @@ int main_antrian(){
 			printf("| 3.  Lihat kendaraan Yang sedang mengantri di tempat 2 |\n");
 			printf("| 4.  Tambah waktu                                      |\n",durasi_simulasi);
 			printf("| 5.  Cari plat nomor dalam antrian                     |\n");
-    		printf("| 6.  Cancel antrian                                    |\n");
-			printf("| 7.  Selesai                                           |\n");
+    		        printf("| 6.  Cancel antrian                                    |\n");
+			printf("| 7.  Kembali ke home                                   |\n");
 		
 
 			printf("\n\n");
@@ -346,23 +333,9 @@ int main_antrian(){
 				
 
 				case 7:
-					pil = cek_antrian();
-					if(pil != 0){ // JIKA RETURN NILAI NYA ADALAH 0, MAKA ARTINYA SUDAH TIDAK ADA MOBIL YANG DI CUCI ATAU MENGANTRI
-						printf("Masih ada mobil yang sedang dicuci! Tidak bisa keluar dari program.\n");
-						tombol_selanjutnya(); // MODUL UNTUK ALTERNATIF BY PASS
-
-						main_antrian(); // MODUL UTAMA
-						
-						break;	
-					}
-					
-					system("cls");
-
-					out(); // MODUL UNTUK MENAMPILKAN RINGKASAN TOTAL TRANSAKSI
-
-					exit(1);	
-
+                 	                home(); 
 					break;
+			
 
 			 	default:
 			 		salah_input_menu_antrian(); // REDIRECT KE salah_input_menu_antrian() UNTUK HANDLER PADA SAAT SALAH INPUT - LOKASI FILE : antrian.cpp
