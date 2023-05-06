@@ -20,9 +20,9 @@ antrian_cuci *tempat_cuci_1 = NULL; // LIST MENUNJUK NULL
 antrian_cuci *tempat_cuci_2 = NULL; // LIST MENUNJUK NULL
 
 int jumlah_durasi[2]; // DURASI PADA SETIAP TEMPAT CUCI
-int pilihan_durasi[4] = {45,60,90,10}; // DURASI SESUAI JENIS MOBIL
+int pilihan_durasi[4] = {60,60,60,60}; // DURASI SESUAI JENIS MOBIL
 int pilihan_harga[4] = {10000,30000,50000,10000}; // HARGA SESUAI JENIS MOBIL
-int durasi_simulasi = 5; // SIMULASI SKIP WAKTU DI SET 5 MENIT
+int durasi_simulasi = 60; // SIMULASI SKIP WAKTU DI SET 5 MENIT
 int durasi_jeda = 5; // SIMULASI JEDA WAKTU DI SET 5 MENIT SETIAP SELESAI MENCUCI
 int waktu_buka = 0; // DALAM MENIT
 int waktu_tutup = 600; // DALAM MENIT
