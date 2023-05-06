@@ -20,6 +20,96 @@ int exit_aplikasi_antrian();		// MODUL UNTUK KELUAR APLIKASI
 int salah_input_menu_antrian();		// MODUL UNTUK ERROR HANDLE APABILA SALAH INPUT PADA MENU
 // DEKLARASI MODUL FUNCTION - END
 
+int login() {
+    char username[MAX_USERNAME_LENGTH], password[MAX_PASSWORD_LENGTH];
+    int choice;
+   int hitung_durasi_by_jenis; 
+    // Input username and password
+    printf("Enter username: ");
+    scanf("%s", username);
+    printf("Enter password: ");
+    scanf("%s", password);
+   
+    // Check if the username and password are correct
+    if (strcmp(username, "admin") == 0 && strcmp(password, "123") == 0) {
+        printf("Login Berhasil!\n");
+
+        // Show menu
+       	printf("\n");
+	    printf("\t\t\t");jam_waktu();
+        printf("\n");
+        printf("Menu:\n");
+        printf("1. Lihat Statictic\n");
+        printf("2. Lihat kendaraan yang sedang di cuci\n");
+        printf("3. Lihat kendaraan yang sedang mengantri di tempat 1\n");
+        printf("4. Lihat kendaraan yang sedang mengantri di tempat 2\n");
+        printf("5. Lihat History transaksi tempat 1\n");
+        printf("6. Lihat Data Pemasukan tempat 2\n");
+        printf("7. Lihat Data Pemasukan Keseluruhan\n");
+        printf("8. Hapus Data Pemasukan tempat 1\n");
+        printf("9. Hapus Data Pemasukan tempat 2\n");
+        printf("10. Hapus Data Pemasukan Keseluruhan\n");
+        printf("11. keluar dan Kembali ke home\n");
+        printf("\n");
+
+        do {
+            printf("Masukan Pilihan: ");
+            scanf("%d", &choice);
+
+            switch (choice) {
+                case 1:
+                  Statistic();
+                 
+                	printf("\n");
+                    break;
+                case 2:
+                    data_antrian();
+                   	printf("\n");
+                 
+                    break;
+                case 3:
+                   cek_tempat1_antrian();
+                    printf("\n");
+                   
+                    break;
+                case 4:
+                	 cek_tempat2_antrian();
+                		printf("\n");
+                    break;
+                case 5:
+                   read_tempat1();
+                   printf("\n");
+                    break;
+                case 6:
+                   
+                    break;
+                case 7:
+                    
+                    break;
+                case 8:
+                  
+                    break;
+                     case 9:
+                    
+                    break;
+                     case 10:
+                    
+                    break;
+                     case 11:
+                     home();
+                    break;
+                default:
+                    printf("Invalid choice. Please try again.\n");
+                    break;
+            }
+        } while (choice != 11);
+    } else {
+        printf("Invalid username or password.\n");
+    }
+
+    system("pause");
+    home();
+}
 
 
 // FUNCTION UTAMA UNTUK ANTRIAN DARI APLIKASI
