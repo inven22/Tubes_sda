@@ -18,12 +18,14 @@
 // DEKLARASI MODUL FUNCTION
 int exit_aplikasi_antrian();		// MODUL UNTUK KELUAR APLIKASI
 int salah_input_menu_antrian();		// MODUL UNTUK ERROR HANDLE APABILA SALAH INPUT PADA MENU
+
 // DEKLARASI MODUL FUNCTION - END
 
 int login() {
     char username[MAX_USERNAME_LENGTH], password[MAX_PASSWORD_LENGTH];
     int choice;
    int hitung_durasi_by_jenis; 
+     system("cls");
     // Input username and password
     printf("Enter username: ");
     scanf("%s", username);
@@ -43,12 +45,12 @@ int login() {
         printf("2. Lihat kendaraan yang sedang di cuci\n");
         printf("3. Lihat kendaraan yang sedang mengantri di tempat 1\n");
         printf("4. Lihat kendaraan yang sedang mengantri di tempat 2\n");
-        printf("5. Lihat History transaksi tempat 1\n");
-        printf("6. Lihat Data Pemasukan tempat 2\n");
-        printf("7. Lihat Data Pemasukan Keseluruhan\n");
-        printf("8. Hapus Data Pemasukan tempat 1\n");
-        printf("9. Hapus Data Pemasukan tempat 2\n");
-        printf("10. Hapus Data Pemasukan Keseluruhan\n");
+        printf("5. Lihat History transaksi keseluruhan\n");
+        printf("6. Lihat History transaksi tempat 1\n");
+        printf("7. Lihat History transaksi tempat 2\n");
+        printf("8. Hapus History transaksi keseluruhan\n");
+        printf("9. Hapus History transaksi tempat 1\n");
+        printf("10.Hapus History transaksi tempat 2\n");
         printf("11. keluar dan Kembali ke home\n");
         printf("\n");
 
@@ -59,42 +61,47 @@ int login() {
             switch (choice) {
                 case 1:
                   Statistic();
-                 
-                	printf("\n");
+                 system("pause");
+                 printf("\n");
                     break;
                 case 2:
                     data_antrian();
-                   	printf("\n");
-                 
+                   system("pause");
+                   printf("\n");
                     break;
                 case 3:
                    cek_tempat1_antrian();
+                    system("pause");
                     printf("\n");
-                   
                     break;
                 case 4:
                 	 cek_tempat2_antrian();
+                		system("pause");
                 		printf("\n");
                     break;
                 case 5:
-                   read_tempat1();
-                   printf("\n");
+                   read_all();
+                  system("pause");
+                  printf("\n");
                     break;
                 case 6:
-                   
+                   read_tempat1();
+                   system("pause");
+                   printf("\n");
                     break;
                 case 7:
-                    
+                   read_tempat2();
+                   printf("\n");
                     break;
                 case 8:
-                  
-                    break;
-                     case 9:
-                    
-                    break;
-                     case 10:
-                    
-                    break;
+                   hapushistoriall();
+                   break;
+                case 9:
+                     hapushistoritempat1();
+                   break;  
+                case 10:
+                     hapushistoritempat2();
+                    break; 
                      case 11:
                      home();
                     break;
@@ -104,13 +111,13 @@ int login() {
             }
         } while (choice != 11);
     } else {
-        printf("Invalid username or password.\n");
+          printf("Invalid username or password.\n");
+		
     }
 
     system("pause");
     home();
 }
-
 
 // FUNCTION UTAMA UNTUK ANTRIAN DARI APLIKASI
 int main_antrian(){
@@ -142,7 +149,7 @@ int main_antrian(){
 		printf("\n");
 		printf("\n");
 		header();
-		printf("| 3.  Tambah waktu                    |\n",durasi_simulasi);
+		printf("| 3.  Skip istirahat                    |\n",durasi_simulasi);
 	
 
 		printf("\n\n");
@@ -174,7 +181,9 @@ int main_antrian(){
 			printf("| 4.  Tambah waktu                                      |\n",durasi_simulasi);
 			printf("| 5.  Cari plat nomor dalam antrian                     |\n");
 			printf("| 6.  Cancel antrian                                    |\n");
-			printf("| 7.  Selesai                                           |\n");
+			printf("| 7.  Kembali ke Home                                   |\n");
+		
+		
 		
 
 			printf("\n\n");
@@ -236,25 +245,11 @@ int main_antrian(){
 					tombol_selanjutnya(); // MODUL UNTUK ALTERNATIF BY PASS
 
 					main_antrian(); // MODUL UTAMA
-				
-
-					break;
-            	case 7:
-                 	pil = cek_antrian();
-					if(pil != 0){ // JIKA RETURN NILAI NYA ADALAH 0, MAKA ARTINYA SUDAH TIDAK ADA MOBIL YANG DI CUCI ATAU MENGANTRI
-						printf("Masih ada antrian.\n");
-						tombol_selanjutnya(); // MODUL UNTUK ALTERNATIF BY PASS
-
-						main_antrian(); // MODUL UTAMA
-						
-						break;	
-					}
 					
-					system("cls");
-                   
-					out();
-					
+				case 7:
+					home(); // MENAMPILKAN SEMACAM PANDUAN APABILA ADA USER YANG KURANG FAMILIAR DENGAN APLIKASI
 					break;
+            	
 			
 			
 
@@ -273,7 +268,7 @@ int main_antrian(){
 			printf("| 4.  Tambah waktu                                      |\n",durasi_simulasi);
 			printf("| 5.  Cari plat nomor dalam antrian                     |\n");
     		printf("| 6.  Cancel antrian                                    |\n");
-			printf("| 7.  Selesai                                           |\n");
+    		printf("| 7.  Kembali ke Home                                   |\n");
 		
 
 			printf("\n\n");
@@ -338,32 +333,19 @@ int main_antrian(){
 					tombol_selanjutnya();
 
 					main_antrian(); // MODUL UTAMA
-					
-					
 					break;
-
-
-				
-
+					
+					
 				case 7:
-					pil = cek_antrian();
-					if(pil != 0){ // JIKA RETURN NILAI NYA ADALAH 0, MAKA ARTINYA SUDAH TIDAK ADA MOBIL YANG DI CUCI ATAU MENGANTRI
-						printf("Masih ada mobil yang sedang dicuci! Tidak bisa keluar dari program.\n");
-						tombol_selanjutnya(); // MODUL UNTUK ALTERNATIF BY PASS
-
-						main_antrian(); // MODUL UTAMA
-						
-						break;	
-					}
+					home(); // PROSES UNTUK SIMULASI PENCUCIAN MOBIL DENGAN DURASI TERTENTU
+			
 					
-					system("cls");
-
-					out(); // MODUL UNTUK MENAMPILKAN RINGKASAN TOTAL TRANSAKSI
-
-					exit(1);	
-
+					
+					
 					break;
 
+
+			
 			 	default:
 			 		salah_input_menu_antrian(); // REDIRECT KE salah_input_menu_antrian() UNTUK HANDLER PADA SAAT SALAH INPUT - LOKASI FILE : antrian.cpp
 					break;
@@ -390,37 +372,46 @@ void data_antrian(){
 	// DEKLARASI VARIABEL LOKAL
 	antrian_cuci *tempat1, *tempat2;
 
-	printf("\n");
-	printf("TEMPAT CUCI 1 ");
+	printf("Slot cuci 1");
 
 	if(tempat_cuci_1 == NULL){
-		printf(" Kosong ");
+	
 	}else{
 		tempat1 = tempat_cuci_1;
-		printf(" %s   sisa : %d menit - datang : ",tempat1->nopol,tempat1->durasi);
-		konversi_waktu_cuci(tempat1->waktu_in);
-		printf(" - sedang proses : ");
-		konversi_waktu_cuci(tempat1->waktu_proses);
-		printf(" - selesai : ");
-		konversi_waktu_cuci(tempat1->waktu_out);
-
-		
+		printf("\n");
+		printf("|====================================================================|\n");
+		printf(" Plat nomor    : %s                                                   \n",tempat1->nopol);
+		printf(" Durasi cuci   : %d menit                                             \n",tempat1->durasi);
+		printf(" Datang        : ");
+	    	konversi_waktu_cuci(tempat1->waktu_in);
+		printf("\n");          
+		printf(" Selesai       : ");
+		    konversi_waktu_cuci(tempat1->waktu_out);
+			printf("\n"); 
+		printf("|====================================================================|\n");
+	  
+			
 	}
 	
+
 	printf("\n");
-	printf("\n");
-	printf("TEMPAT CUCI 2 ");
+	printf("Slot cuci 2");
 
 	if(tempat_cuci_2 == NULL){
-		printf(" Kosong ");
+	
 	}else{
 		tempat2 = tempat_cuci_2;
-		printf(" %s  sisa : %d menit - Datang pada : ",tempat2->nopol,tempat2->durasi);
-		konversi_waktu_cuci(tempat2->waktu_in);
-		printf(" - sedang proses : ");
-		konversi_waktu_cuci(tempat2->waktu_proses);
-		printf(" - selesai : ");
-		konversi_waktu_cuci(tempat2->waktu_out);
+    	printf("\n");
+		printf("|====================================================================|\n");
+		printf(" Plat nomor    : %s                                                   \n",tempat2->nopol);
+		printf(" Durasi cuci   : %d menit                                             \n",tempat2->durasi);
+		printf(" Datang        : ");
+	    	konversi_waktu_cuci(tempat2->waktu_in);
+		printf("\n");          
+		printf(" Selesai       : ");
+		    konversi_waktu_cuci(tempat2->waktu_out);
+			printf("\n"); 
+		printf("|====================================================================|\n");
 		
 
 		
@@ -428,18 +419,14 @@ void data_antrian(){
 	}
 	
 
-
 // FUNCTION UNTUK MENAMPILKAN SIMULASI ANTRIAN PADA TEMPAT CUCI MOBIL - END
-
-
-
 // FUNTION UNTUK KONVERSI WAKTU
 void jam_waktu(){
 	int j, m, d, detik;
 
 	detik = pukul_waktu * 60;
-
-	j = (detik / 3600) + 7; // TAMBAH 7 KARENA BUKA DARI JAM 7
+    
+	j = (detik / 3600) + 7; 
 	m = (detik % 3600/60);
 	d = detik % 60;
 
@@ -506,13 +493,13 @@ void input_kendaraan(){
 	do{
 		fflush(stdin);
 		printf("\n");
-		printf("Masukkan Nomor Polisi kendaraan : ");
+		printf("Masukkan Nomor plat kendaraan : ");
 		scanf("%[^\n]", &no_plat);
 		fflush(stdin);
 
 		cek = cek_nopol(no_plat, &tanda_tempat);
 		if(cek != 0){ // JIKA CEK BERNILAI BUKAN 0 MAKA SUDAH ADA DATA KENDARAAN PADA TEMPAT CUCI ATAU PADA ANTRIAN
-			printf("Nomor Polisi kendaraan sudah terdaftar! silahkan ganti.\n");
+			printf("Nomor Polisi kendaraan sudah ada.\n");
 		}
 	}while(cek != 0);
 	
@@ -532,7 +519,7 @@ void cancel_kendaraan(){
 
 	pil = cek_antrian();
 	if(pil == 0){ // JIKA RETURN NILAI NYA 0 MAKA LIST NYA SEDANG KOSONG
-		printf("ERROR! antrian kosong.");
+		printf("ERROR! Isi antrian terlebih dahulu.");
 		tombol_selanjutnya();  // MODUL UNTUK ALTERNATIF BY PASS
 
 		main_antrian(); // MODUL UTAMA
@@ -547,13 +534,13 @@ void cancel_kendaraan(){
 		scanf("%[^\n]",&no_plat);
 		fflush(stdin);
 
-		if(no_plat[0]=='0'){  // Jika mengetik "0" Maka program akan di break
+		if(no_plat[0]=='0'){  
 			break;
 		}
 
 		cek = cek_nopol(no_plat, &tanda_tempat);
 		if(cek == 0){ // JIKA RETURN NILAINYA 0 ARTINYA TIDAK ADA KENDARAAN DENGAN NOPOL YANG DI INPUTKAN
-			printf("Tidak ada Kendaraan dengan Nomor Polisi tersebut. silahkan isi kembali.\n");
+			printf("Tidak ada Kendaraan dengan Nomor Polisi %s .\n",no_plat);
 		}
 	}while(cek == 0);
 
@@ -564,7 +551,7 @@ void cancel_kendaraan(){
 void cek_tempat1_antrian() { //Operasi sama kaya comen di cek antrian 2
   antrian_cuci *tempat1;
 
-	printf("TEMPAT CUCI 1 ");
+	printf("antrian di slot cuci 1");
 
 	if(tempat_cuci_1 == NULL){
 		printf(" Kosong ");
@@ -573,9 +560,13 @@ void cek_tempat1_antrian() { //Operasi sama kaya comen di cek antrian 2
 		tempat1 = tempat1->next;
 		while(tempat1 != NULL){
 			printf("\n");
-			printf("sedang mengantri %s (%d menit - datang pada : ",tempat1->nopol,tempat1->durasi);
-			konversi_waktu_cuci(tempat1->waktu_in);
-			printf(" ) ");
+			printf("|====================================================================|\n");
+			printf(" Sedang mengantri : %s   \n",tempat1->nopol);
+			printf(" Durasi cuci      : %d menit   \n",tempat1->durasi);
+			printf(" Datang pada      : ");
+	    	konversi_waktu_cuci(tempat1->waktu_in);
+	    	printf("\n");
+	    	printf("|====================================================================|\n");
 			tempat1 = tempat1->next;
 		}		
 	}
@@ -583,7 +574,7 @@ void cek_tempat1_antrian() { //Operasi sama kaya comen di cek antrian 2
 
 void cek_tempat2_antrian(){
 	antrian_cuci  *tempat2; //POINTER TEMPAT CUCI 2 
-	printf("TEMPAT CUCI 2 ");
+	printf("antrian di slot cuci 2");
 
 	if(tempat_cuci_2 == NULL){ //JIKA SLOT VARIABLE TEMPAT_CUCI_2 NULL MAKA LIST ANTRIAN SLOT 2 KOSONG
 		printf(" Kosong ");
@@ -592,9 +583,13 @@ void cek_tempat2_antrian(){
 		tempat2 = tempat2->next; //NEXT LIST MENGANTRI KE PROSES 
 		while(tempat2 != NULL){ //JIKA NULL MAKA OTOMATIS KENDARAAN YANG MENGANTRI PALING DEPAN MASUK KE ZONA PROSES CUCI 
 			printf("\n");
-			printf("sedang mengantri %s (%d menit - Datang pada : ",tempat2->nopol,tempat2->durasi); //INFORMASI LIST KENDARAAN YANG SEDANG NGANTRI
-			konversi_waktu_cuci(tempat2->waktu_in); //INFORMASI LIST KENDARAAN YANG SEDANG NGANTRI
-			printf(" ) ");
+			printf("|====================================================================|\n");
+			printf(" Sedang mengantri : %s   \n",tempat2->nopol);
+			printf(" Durasi cuci      : %d menit   \n",tempat2->durasi);
+			printf(" Datang pada      : ");
+	    	konversi_waktu_cuci(tempat2->waktu_in);
+	    	printf("\n");
+	    	printf("|====================================================================|\n");
 			tempat2 = tempat2->next;
 		}		
 	}
@@ -606,13 +601,14 @@ void Statistic() { //DALAM PENGEMBANGAN
 	
 	printf("\n");
 	printf("  Tempat cuci anda mencuci Mobil selama          : %d menit.\n",jumlah_waktu);
-	printf("  Total Kendaraan yang telah selesai di cucu     : %d       \n",jumlah_kendaraan);
+	printf("  Total Kendaraan yang telah selesai di cuci     : %d       \n",jumlah_kendaraan);
 	printf("  Total Pemasukan Hari ini Tempat cuci anda      : Rp. %d \n",jumlah_harga);
 }
 
 void cek(){
 	char no_plat[15];// DECLARE VARIABLE
 	int cek, jenis, tanda_tempat; //DECLARE SCOPE
+
 
 		fflush(stdin);
 		printf("\n");
@@ -622,10 +618,10 @@ void cek(){
 
 		cek = cek_nopol(no_plat, &tanda_tempat);
 		if(cek != 0){ // JIKA CEK BERNILAI  0 data ditemukan
-			printf("Plat Nomor  ditemukan, sedang mengantri/Tahap proses.\n");
+			printf("Plat Nomor %s ditemukan sedang mengantri/Tahap proses  di slot cuci nomor %d .\n",no_plat,tanda_tempat);
 		}
 	    if(cek != 1){ // JIKA CEK BERNILAI 1 Data belum ditemukan
-			printf("Plat nomor  tidak ditemukan Atau sudah keluar.\n");
+			printf("Plat nomor %s tidak ditemukan Atau sudah keluar.\n",no_plat);
 		}
 	
 	
@@ -685,20 +681,22 @@ int jenis_kendaraan(){
 	printf("|===============================================================================|\n");
 	printf("|                             JENIS KENDARAAN                                   |\n");
 	printf("|===============================================================================|\n");
-	printf("| NO | JENIS                                           |  DURASI  |    HARGA     |\n");
-	printf("| 1. |   Mini car (Avanza,kayla,brio dll)              | %d menit |    Rp. %d    |\n",pilihan_durasi[0], pilihan_harga[0]);
-	printf("| 2. |   SUV      (Innova,Fortuner,Pajero dll)         | %d menit |    Rp. %d    |\n",pilihan_durasi[1], pilihan_harga[1]);
-	printf("| 3. |   Big  car (Bus,truck,container dll             | %d menit |    Rp. %d    |\n",pilihan_durasi[2], pilihan_harga[2]);
-	printf("| 4. |   Roda Dua (Sepeda motor dll)                   | %d menit |    Rp. %d    |\n",pilihan_durasi[3], pilihan_harga[3]);
+	printf("| NO | JENIS                                           |  DURASI   |    HARGA     |\n");
+	printf("| 1. |   Mini car (Avanza,kayla,brio dll)              | %d menit  |    Rp. %d    |\n",pilihan_durasi[0], pilihan_harga[0]);
+	printf("| 2. |   SUV      (Innova,Fortuner,Pajero dll)         | %d menit  |    Rp. %d    |\n",pilihan_durasi[1], pilihan_harga[1]);
+	printf("| 3. |   Roda Dua (Sepeda motor dll)                   | %d menit  |    Rp. %d    |\n",pilihan_durasi[2], pilihan_harga[2]);
+	printf("| 4. |   Big  car (Bus,truck,container dll             | %d menit  |    Rp. %d    |\n",pilihan_durasi[3], pilihan_harga[3]);
+	printf("|========================== Tekan 0 untuk kembali ===============================\n");
 	
-  
+	
+   
 	do{
 		printf("\n");
 		printf("Pilih Jenis Kendaraan (1-4) : ");
 		scanf("%d", &pilihan_jenis_kendaraan);
 
 		if((pilihan_jenis_kendaraan < 0) || (pilihan_jenis_kendaraan > 4)){ // JIKA INPUTAN KURANG DARI 0 ATAU LEBIH DARI 3 MAKA KELUAR ALERT
-			printf("Inputan Salah ! Pilihan diantara 1 - 3, silahkan input lagi.\n\n");
+			printf("Inputan Salah ! Pilihan diantara 1 - 4, silahkan input lagi.\n\n");
 		}
 	}while((pilihan_jenis_kendaraan < 0) || (pilihan_jenis_kendaraan > 4));
 
@@ -757,7 +755,7 @@ int keluar_kendaraan(char no_plat[], antrian_cuci *tempat){
 
 	if(strcmp(no_plat,tempat->nopol) == 0){ // JIKA RETURNNYA 0, ITU ARTINYA MOBIL SEDANG DICUCI, KARENA ITU ELEMEN PALING AWAL / KENDARAAN YANG MEMANG SEDANG DI CUCI
 		printf("\n");
-		printf("Kendaraan sedang dicuci! tunggu hingga selesai.\n");
+		printf("Cancel error,kendaraan sedang dicuci.\n");
 	}else{
 		while(strcmp(no_plat,tempat->next->nopol)!=0){ // PROSES PENCARIAN NOPOL YANG SAMA ANTARA INPUTAN DENGAN YANG ADA DI ANTRIAN
 			tempat = tempat->next;
@@ -1102,6 +1100,7 @@ void notifikasi_status(char no_plat[],int golongan){
 	// DEKLARASI VARIABEL LOKAL
 	int temp_waktu;
 
+
 	printf("\n");
 	printf("Mobil dengan Plat Nomor %s berhasil ditambahkan keantrian pada tempat cuci no - %d, perkiraan durasi pencucian",no_plat, antrean+1);
 
@@ -1141,12 +1140,12 @@ void notifikasi_status(char no_plat[],int golongan){
 // MODUL UNTUK EXPORT LAPORAN TRANSAKSI SEMUA DATA
 void tampil_laporan_semua(antrian_cuci *tempat)
 {
-	char filename[255], baris[310];
+	char filename[255],baris[30];
 	// antrian_cuci data_transaksi; // VARIABEL STRUCT
 	FILE *f_txt; // VARIABEL FILE
 
       
-	strcpy(filename, "main_data/laporan keseluruhan transaksi.txt");
+	strcpy(filename, "main_data/history transaksi semua.txt");
 
 	if (!(f_txt = fopen(filename, "a")))
 	{
@@ -1163,8 +1162,7 @@ void tampil_laporan_semua(antrian_cuci *tempat)
 	// PROSES MEMASUKAN DATA KE CSV FILE
 	int hitung_durasi_by_jenis; 
 	hitung_durasi_by_jenis =  tempat->waktu_out - tempat->waktu_proses;
-	sprintf(baris,"plat nomor :%s,jenis kendaraan :%d,durasi :%d Menit,harga :Rp.%d,datang :%d Menit setelah buka,proses :%d Menit,selesai:%d\n",tempat->nopol, tempat->golongan, hitung_durasi_by_jenis, tempat->harga, tempat->waktu_in, tempat->waktu_proses, tempat->waktu_out);
-	printf("\n");
+	sprintf(baris,"%s,%d,%d Menit,Rp.%d\n",tempat->nopol, tempat->golongan,hitung_durasi_by_jenis, tempat->harga);
 	fputs(baris,f_txt);
 	
 	fclose(f_txt);
@@ -1176,11 +1174,11 @@ void tampil_laporan_semua(antrian_cuci *tempat)
 // MODUL UNTUK EXPORT LAPORAN TRANSAKSI DATA ANTRIAN TEMPAT CUCI 1
 void tampil_laporan_semua_tempat_cuci_1(antrian_cuci *tempat)
 {
-	char filename[255], baris[310];
+	char filename[255], baris[30];
 	// antrian_cuci data_transaksi; // VARIABEL STRUCT
 	FILE *f_txt; // VARIABEL FILE
 
-	strcpy(filename, "main_data/Laporan akumulasi pemasukan tempat cuci 1.txt");
+	strcpy(filename, "main_data/history transaksi semua tempat cuci 1.txt");
 
 	if (!(f_txt = fopen(filename, "a")))
 	{
@@ -1196,7 +1194,7 @@ void tampil_laporan_semua_tempat_cuci_1(antrian_cuci *tempat)
 	// PROSES MEMASUKAN DATA KE CSV FILE
 	int hitung_durasi_by_jenis; 
 	hitung_durasi_by_jenis =  tempat->waktu_out - tempat->waktu_proses;
-	sprintf(baris,"plat nomor :%s,jenis kendaraan :%d,durasi :%d Menit,harga :Rp.%d,datang :%d Menit setelah buka,proses :%d menit,selesai:%d\n",tempat->nopol, tempat->golongan, hitung_durasi_by_jenis, tempat->harga, tempat->waktu_in, tempat->waktu_proses, tempat->waktu_out);
+	sprintf(baris,"%s,%d,%d Menit,Rp.%d\n",tempat->nopol, tempat->golongan, hitung_durasi_by_jenis, tempat->harga);
 	printf("\n");
 	fputs(baris,f_txt);
 	
@@ -1209,11 +1207,11 @@ void tampil_laporan_semua_tempat_cuci_1(antrian_cuci *tempat)
 // MODUL UNTUK EXPORT LAPORAN TRANSAKSI DATA ANTRIAN TEMPAT CUCI 2
 void tampil_laporan_semua_tempat_cuci_2(antrian_cuci *tempat)
 {
-	char filename[255], baris[310];
+	char filename[255], baris[30];
 	// antrian_cuci data_transaksi; // VARIABEL STRUCT
 	FILE *f_txt; // VARIABEL FILE
 
-	strcpy(filename, "main_data/Laporan akumulasi pemasukan tempat cuci 2.txt");
+	strcpy(filename, "main_data/history transaksi semua tempat cuci 2.txt");
 
 	if (!(f_txt = fopen(filename, "a")))
 	{
@@ -1229,15 +1227,187 @@ void tampil_laporan_semua_tempat_cuci_2(antrian_cuci *tempat)
 	// PROSES MEMASUKAN DATA KE CSV FILE
 	int hitung_durasi_by_jenis; 
 	hitung_durasi_by_jenis =  tempat->waktu_out - tempat->waktu_proses;
-	sprintf(baris,"plat nomor :%s,jenis kendaraan :%d,durasi :%d Menit,harga :Rp.%d,datang :%d Menit setelah buka,proses :%d menit,selesai:%d\n",tempat->nopol, tempat->golongan, hitung_durasi_by_jenis, tempat->harga, tempat->waktu_in, tempat->waktu_proses, tempat->waktu_out);
+	sprintf(baris,"%s,%d,%d Menit,Rp.%d\n",tempat->nopol, tempat->golongan, hitung_durasi_by_jenis, tempat->harga);
 	printf("\n");
 	fputs(baris,f_txt);
 	
 	fclose(f_txt);
 	
 }
+// Define the structure of the table row
+
+void read_all()
+{
+     
+	 FILE *file = fopen("main_data/history transaksi semua.txt", "r");
+    if (file == NULL) {
+        printf("File telah dihapus\n");
+        
+    }
+
+    printf("| %-10s | %-20s | %-20s | %-5s     \n", "No plat","Kode jenis kendaraan","Durasi","Total biaya");
+    printf("--------------------------------------------------------------------------------\n");
+    char buffer[100];
+    while (fgets(buffer, 100, file) != NULL) {
+        char *col1 = strtok(buffer, ",");
+        char *col2 = strtok(NULL, ",");
+        char *col3 = strtok(NULL, ",");
+        char *col4 = strtok(NULL, ",");
+    printf("| %-10s | %-20s | %-20s | %-5s    \n", col1, col2, col3, col4);
+    }
+
+    fclose(file);
+}
+
+void read_tempat1()
+{
+	
+	 FILE *file = fopen("main_data/history transaksi semua tempat cuci 1.txt", "r");
+    if (file == NULL) {
+        printf("File telah dihapus\n");
+        
+    }
+
+    printf("| %-10s | %-20s | %-20s | %-5s    \n", "No plat","Kode jenis kendaraan","Durasi","Total biaya");
+    printf("--------------------------------------------------------------------------------\n");
+    char buffer[100];
+    while (fgets(buffer, 100, file) != NULL) {
+        char *col1 = strtok(buffer, ",");
+        char *col2 = strtok(NULL, ",");
+        char *col3 = strtok(NULL, ",");
+        char *col4 = strtok(NULL, ",");
+    printf("| %-10s | %-20s | %-20s | %-5s  \n", col1, col2, col3, col4);
+    }
+
+    fclose(file);
+}
+
+void read_tempat2()
+{
+	 FILE *file = fopen("main_data/history transaksi semua tempat cuci 2.txt", "r");
+    if (file == NULL) {
+        printf("Error opening file\n");
+        
+    }
+
+    printf("| %-10s | %-20s | %-20s | %-5s   \n", "No plat","Kode jenis kendaraan","Durasi","Total biaya");
+    printf("--------------------------------------------------------------------------------\n");
+    char buffer[100];
+    while (fgets(buffer, 100, file) != NULL) {
+        char *col1 = strtok(buffer, ",");
+        char *col2 = strtok(NULL, ",");
+        char *col3 = strtok(NULL, ",");
+        char *col4 = strtok(NULL, ",");
+    printf("| %-10s | %-20s | %-20s | %-5s  \n", col1, col2, col3, col4);
+    }
+
+    fclose(file);
+}
+
+void hapushistoriall(){
+  FILE *fp;
+   char confirm = '\0';
+
+   while (confirm != 'y' && confirm != 'Y' && confirm != 'n' && confirm != 'N') {
+      printf("Yakin ingin menghapus data ini? (y/n): ");
+      scanf(" %c", &confirm);
+   }
+
+   if (confirm == 'y' || confirm == 'Y') {
+      fp = fopen("main_data/history transaksi semua.txt", "w");
+      fprintf(fp, ""); // menimpa isi file dengan data kosong
+      fclose(fp);
+
+      printf("berhasil dihapus.\n");
+   } else {
+      printf("Tidak jadi menghapus data.\n");
+   }
+}
+void hapushistoritempat1(){
+	FILE *fp;
+   char confirm = '\0';
+
+   while (confirm != 'y' && confirm != 'Y' && confirm != 'n' && confirm != 'N') {
+      printf("Yakin ingin menghapus data ini? (y/n): ");
+      scanf(" %c", &confirm);
+   }
+
+   if (confirm == 'y' || confirm == 'Y') {
+      fp = fopen("main_data/history transaksi semua tempat cuci 1.txt", "w");
+      fprintf(fp, ""); // menimpa isi file dengan data kosong
+      fclose(fp);
+
+      printf("berhasil dihapus.\n");
+   } else {
+      printf("Tidak jadi menghapus data.\n");
+   }
+}
+void hapushistoritempat2(){
+	FILE *fp;
+   char confirm = '\0';
+
+   while (confirm != 'y' && confirm != 'Y' && confirm != 'n' && confirm != 'N') {
+      printf("Yakin ingin menghapus data ini? (y/n): ");
+      scanf(" %c", &confirm);
+   }
+
+   if (confirm == 'y' || confirm == 'Y') {
+      fp = fopen("main_data/history transaksi semua tempat cuci 2.txt", "w");
+      fprintf(fp, ""); // menimpa isi file dengan data kosong
+      fclose(fp);
+
+      printf("berhasil dihapus.\n");
+   } else {
+      printf("Tidak jadi menghapus data.\n");
+  
+}
+}
 // MODUL UNTUK EXPORT LAPORAN TRANSAKSI DATA ANTRIAN TEMPAT CUCI 2 - END
 
+
+//int search()
+//{
+//    FILE *fp;
+//    char filename[] = "main_data/Laporan akumulasi pemasukan tempat cuci 1.txt";
+//    char line[MAX_LINE_SIZE];
+//    char search_key[MAX_LINE_SIZE];
+//    int count = 0;
+//
+//    printf("Enter a search key: ");
+//    
+//    fgets(search_key, MAX_LINE_SIZE, stdin);
+//    search_key[strcspn(search_key, "\n")] = '\0'; // Remove newline character
+//
+//    fp = fopen(filename, "r");
+//
+//    if (fp == NULL)
+//    {
+//        printf("Error opening file %s.\n", filename);
+//        exit(EXIT_FAILURE);
+//    }
+//
+//    while (fgets(line, MAX_LINE_SIZE, fp) != NULL)
+//    {
+//        if (strstr(line, search_key) != NULL)
+//        {
+//            printf("%s", line);
+//            count++;
+//        }
+//    }
+//
+//    if (count == 0)
+//    {
+//        printf("%s not found.\n", search_key);
+//    }
+//    else
+//    {
+//        printf("Found %d record(s) matching the search key %s.\n", count, search_key);
+//    }
+//
+//    fclose(fp);
+//
+//    return 0;
+//}
 
 // MODUL UNTUK MENAMPILKAN RINGKASAN TOTAL TRANSAKSI
 void out()
