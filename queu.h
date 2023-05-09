@@ -1,12 +1,17 @@
-#ifndef queue_controller_h
-#define queue_controller_h
+#ifndef queue_h
+#define queue_h
 
+#define MAX_USERNAME_LENGTH 50
+#define MAX_PASSWORD_LENGTH 50
+#define MAX_LINE_SIZE 256
+#define MAX_LINE_LENGTH 1000
+#define MAX_NUM_COLS 1000
+#define MAX_NUM_ROWS 1000
 
 // DEKLARASI VARIABEL GLOBAL
 typedef struct antrian_cuci *address;
-struct antrian_cuci{
+ struct antrian_cuci{
 	char nopol[15];
-
 	int golongan;
 	int durasi;
 	int harga;
@@ -14,16 +19,27 @@ struct antrian_cuci{
 	int waktu_proses;
 	int waktu_out;
 	address next;
-};
+	
+	 };
+	
+//typedef struct { char nopol[15];
+//                 int golongan;
+//				 int durasi;
+//				 int harga;
+//				 int waktu_in;
+//				 int waktu_proses;
+//				 int waktu_out; }  file; 
+//    
 
+	             
 antrian_cuci *tempat_cuci_1 = NULL; // LIST MENUNJUK NULL
 antrian_cuci *tempat_cuci_2 = NULL; // LIST MENUNJUK NULL
 
 int jumlah_durasi[2]; // DURASI PADA SETIAP TEMPAT CUCI
-int pilihan_durasi[4] = {60,60,60,60}; // DURASI SESUAI JENIS MOBIL
-int pilihan_harga[4] = {10000,30000,50000,10000}; // HARGA SESUAI JENIS MOBIL
-int durasi_simulasi = 60; // SIMULASI SKIP WAKTU DI SET 5 MENIT
-int durasi_jeda = 5; // SIMULASI JEDA WAKTU DI SET 5 MENIT SETIAP SELESAI MENCUCI
+int pilihan_durasi[4] = {20,60,90,120}; // DURASI SESUAI JENIS MOBIL
+int pilihan_harga[4] = {10000,30000,10000,50000}; // HARGA SESUAI JENIS MOBIL
+int durasi_simulasi = 30; // SIMULASI SKIP WAKTU DI SET 5 MENIT
+int durasi_jeda = 0; // SIMULASI JEDA WAKTU DI SET 5 MENIT SETIAP SELESAI MENCUCI
 int waktu_buka = 0; // DALAM MENIT
 int waktu_tutup = 600; // DALAM MENIT
 int waktu_mulai_istirahat = 300; // DALAM MENIT
@@ -38,10 +54,19 @@ int jumlah_waktu_by_tempat_cuci[2]; // JUMLAH TOTAL WAKTU MENCUCI BERDASARKAN TE
 int jumlah_harga_by_tempat_cuci[2]; // JUMLAH TOTAL PEMASUKAN BERDASARKAN TEMPAT CUCI
 // DEKLARASI VARIABEL GLOBAL - END
 
+//DECLARE STRUKTUR DATA dan variabel ADMIN
+
 
 // DEKLRASI MODUL
 int main_antrian();
 int home();
+//int search();
+void read_all();
+void read_tempat1();
+void read_tempat2();
+void hapushistoriall();
+void hapushistoritempat1();
+void hapushistoritempat2();
 void tombol_selanjutnya();
 void header();
 void cancel_kendaraan();
