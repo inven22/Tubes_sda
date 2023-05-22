@@ -2,6 +2,7 @@
 #define program_h
 
 // FUNCTION SETIAP HOMEPAGE
-int main_antrian();				
+int home();	
+		
 
 #endif 

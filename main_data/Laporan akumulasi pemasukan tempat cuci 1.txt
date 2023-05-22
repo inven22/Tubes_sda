@@ -1,7 +1,0 @@
-plat nomor :d,jenis kendaraan :4,durasi :10 Menit,harga :Rp.10000,datang :0 Menit setelah buka,proses :0 menit,selesai:10
-plat nomor :1,jenis kendaraan :4,durasi :10 Menit,harga :Rp.10000,datang :0 Menit setelah buka,proses :0 menit,selesai:10
-plat nomor :D 22 D,jenis kendaraan :2,durasi :60 Menit,harga :Rp.30000,datang :20 Menit setelah buka,proses :20 menit,selesai:80
-plat nomor :1,jenis kendaraan :4,durasi :10 Menit,harga :Rp.10000,datang :0 Menit setelah buka,proses :0 menit,selesai:10
-plat nomor :S 44 R,jenis kendaraan :4,durasi :10 Menit,harga :Rp.10000,datang :0 Menit setelah buka,proses :0 menit,selesai:10
-plat nomor :e,jenis kendaraan :2,durasi :60 Menit,harga :Rp.30000,datang :0 Menit setelah buka,proses :0 menit,selesai:60
-plat nomor :1,jenis kendaraan :4,durasi :10 Menit,harga :Rp.10000,datang :0 Menit setelah buka,proses :0 menit,selesai:10

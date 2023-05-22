@@ -1,0 +1,17 @@
+s,7,160 Menit,Rp.70000
+A,2,120 Menit,Rp.30000
+D 44 ,1,40 Menit,Rp.10000
+D 33 ,2,120 Menit,Rp.30000
+D 44 G,8,40 Menit,Rp.29000
+A,2,120 Menit,Rp.30000
+S,7,160 Menit,Rp.29000
+G ,1,40 Menit,Rp.10000
+D ,6,80 Menit,Rp.50000
+D 33,3,80 Menit,Rp.9000
+A,6,120 Menit,Rp.50000
+A,5,50 Menit,Rp.30000
+A,6,130 Menit,Rp.50000
+A,1,40 Menit,Rp.10000
+A 33,7,50 Menit,Rp.29000
+a,8,170 Menit,Rp.70000
+D 33,1,80 Menit,Rp.10000
