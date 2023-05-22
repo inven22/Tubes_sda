@@ -25,12 +25,13 @@ int home(){
 
 	// LIST MENU APLIKASI
 	system("cls");
-
-
-	printf("| Silahkan Pilih Menu dibawah ini :                                                                         |\n");
+    printf("\n");
+    printf("\n");
+    printf("|===========================================================================================================|\n");
+	printf("|                                   Silahkan Pilih Menu dibawah ini :                                       |\n");
 	printf("|===========================================================================================================|\n");
 	printf("| 1. Masuk ke admin                                                                                         |\n");
-	printf("| 2. Masuk ke petugas                                                                                       |\n");
+	printf("| 2. Masuk ke pegawai                                                                                       |\n");
 	printf("| 3. Keluar                                                                                                 |\n");
 
 

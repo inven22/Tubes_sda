@@ -16,11 +16,6 @@ int main() {
 	// PROSES FITUR SPLASH SCREEN
 	
 	
-	
-	
-
-	
-	
 	home(); 
 
 	system("cls");
@@ -29,3 +24,5 @@ int main() {
 }
 
 
+
+// MODUL UNTUK MENGATUR POSISI LOADING - END

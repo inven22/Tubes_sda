@@ -66,27 +66,27 @@ int login() {
                     break;
                 case 2:
                     data_antrian();
-                   system("pause");
+                  
                    printf("\n");
                     break;
                 case 3:
                    cek_tempat1_antrian();
-                    system("pause");
+                  
                     printf("\n");
                     break;
                 case 4:
                 	 cek_tempat2_antrian();
-                		system("pause");
+                	
                 		printf("\n");
                     break;
                 case 5:
                    read_all();
-                  system("pause");
+                 
                   printf("\n");
                     break;
                 case 6:
                    read_tempat1();
-                   system("pause");
+                  
                    printf("\n");
                     break;
                 case 7:
@@ -133,7 +133,7 @@ int main_antrian(){
 	printf("\t\t\t");jam_waktu();
 
 	if(pukul_waktu >= waktu_tutup){
-		out(); // MODUL UNTUK MENAMPILKAN RINGKASAN TOTAL TRANSAKSI
+		tutup();
 	}
 	else if(pukul_waktu >= waktu_mulai_istirahat && pukul_waktu <= waktu_selesai_istirahat){
 		printf("\n");
@@ -382,6 +382,7 @@ void data_antrian(){
 		printf("|====================================================================|\n");
 		printf(" Plat nomor    : %s                                                   \n",tempat1->nopol);
 		printf(" Durasi cuci   : %d menit                                             \n",tempat1->durasi);
+		printf(" Harga cuci    : Rp.%d                                                \n",tempat1->harga);
 		printf(" Datang        : ");
 	    	konversi_waktu_cuci(tempat1->waktu_in);
 		printf("\n");          
@@ -405,6 +406,7 @@ void data_antrian(){
 		printf("|====================================================================|\n");
 		printf(" Plat nomor    : %s                                                   \n",tempat2->nopol);
 		printf(" Durasi cuci   : %d menit                                             \n",tempat2->durasi);
+		printf(" Harga cuci    : Rp.%d                                                \n",tempat2->harga);
 		printf(" Datang        : ");
 	    	konversi_waktu_cuci(tempat2->waktu_in);
 		printf("\n");          
@@ -471,13 +473,45 @@ int salah_input_menu_antrian(){
 // FUNCTION UNTUK INPUT DATA KENDARAAN
 void input_kendaraan(){
 	char no_plat[15];
-	int cek, jenis, tanda_tempat;
-
-	jenis = jenis_kendaraan();
+	int cek, jenis,tanda_tempat;
+	
+	 jenis = jenis_kendaraan();
 	if(jenis == 0){ // JIKA INPUTAN ADALAH 0 MAKA AKAN DI ARAHKAN KEMBALI KE MAIN, DAN DI ANGGAP MEMBATALKAN PROSES INPUT DATA
 		main_antrian(); // MODUL UTAMA
 	}
 
+//printf("\n");
+//	    printf("\t\t\t");
+//        printf("\n");
+//        printf("Silahkan Pilih Kode jenis kendaraan yang dipilih sebelumnya,untuk proses penginputan jenis cuci :\n");
+//        printf("1\n");
+//        printf("2\n");
+//        printf("3\n");
+//       
+//        printf("\n");
+//
+//        do {
+//            printf("Masukan Pilihan: ");
+//            scanf("%d", &choice);
+//
+//            switch (choice) {
+//                case 1:
+//                 
+//	printf("\n");
+//                    break;
+//                case 2:
+//                   cuci = jenis_cuci();
+//	if(cuci == 0){ // JIKA INPUTAN ADALAH 0 MAKA AKAN DI ARAHKAN KEMBALI KE MAIN, DAN DI ANGGAP MEMBATALKAN PROSES INPUT DATA
+//		main_antrian(); // MODUL UTAMA
+//	}
+//                  
+//                   printf("\n");
+//                    break;
+//                     }
+//        } while (choice != 0);
+
+	
+	
 	if(waktu_tutup < (pilihan_durasi[jenis-1] + pukul_waktu)){
 		printf("Waktu tidak mencukupi dikarenakan sebentar lagi akan tutup");
 		tombol_selanjutnya();
@@ -499,7 +533,7 @@ void input_kendaraan(){
 
 		cek = cek_nopol(no_plat, &tanda_tempat);
 		if(cek != 0){ // JIKA CEK BERNILAI BUKAN 0 MAKA SUDAH ADA DATA KENDARAAN PADA TEMPAT CUCI ATAU PADA ANTRIAN
-			printf("Nomor Polisi kendaraan sudah ada.\n");
+			printf("Nomor Polisi kendaraan sudah terdaftar di slot %d\n",tanda_tempat);
 		}
 	}while(cek != 0);
 	
@@ -530,7 +564,7 @@ void cancel_kendaraan(){
 
 		fflush(stdin);
 		printf("\n");
-		printf("Masukkan Nomor Polisi kendaraan yang ingin dikeluarkan dari antrian : ");
+		printf("Masukkan Nomor Polisi kendaraan yang ingin dikeluarkan dari antrian  : ");
 		scanf("%[^\n]",&no_plat);
 		fflush(stdin);
 
@@ -609,6 +643,8 @@ void cek(){
 	char no_plat[15];// DECLARE VARIABLE
 	int cek, jenis, tanda_tempat; //DECLARE SCOPE
 
+	
+
 
 		fflush(stdin);
 		printf("\n");
@@ -673,39 +709,73 @@ int cek_nopol(char no_plat[], int *tanda_tempat){
 
 
 // FUNCTION UNTUK MENAMPILKAN PILIHAN JENIS KENDARAAN
+
+
 int jenis_kendaraan(){
 	// DEKLARASI VARIABEL LOKAL
 	int pilihan_jenis_kendaraan;
 	printf("\n");
 	printf("\n");
-	printf("|===============================================================================|\n");
-	printf("|                             JENIS KENDARAAN                                   |\n");
-	printf("|===============================================================================|\n");
-	printf("| NO | JENIS                                           |  DURASI   |    HARGA     |\n");
-	printf("| 1. |   Mini car (Avanza,kayla,brio dll)              | %d menit  |    Rp. %d    |\n",pilihan_durasi[0], pilihan_harga[0]);
-	printf("| 2. |   SUV      (Innova,Fortuner,Pajero dll)         | %d menit  |    Rp. %d    |\n",pilihan_durasi[1], pilihan_harga[1]);
-	printf("| 3. |   Roda Dua (Sepeda motor dll)                   | %d menit  |    Rp. %d    |\n",pilihan_durasi[2], pilihan_harga[2]);
-	printf("| 4. |   Big  car (Bus,truck,container dll             | %d menit  |    Rp. %d    |\n",pilihan_durasi[3], pilihan_harga[3]);
-	printf("|========================== Tekan 0 untuk kembali ===============================\n");
-	
+	printf("|=============================================================================================================|\n");
+	printf("|                                                DATA KENDARAAN                                               |\n");
+	printf("|=============================================================================================================|\n");
+	printf("| NO |               JENIS                             | JENIS CUCI             |  DURASI   |    HARGA       |\n");
+	printf("| 1. |   Mini car (Avanza,kayla,brio dll)              |Biasa ajh tambah Rp.%d, | %d menit  |    Rp. %d      |\n",pilihan_harga_cuci1[1],pilihan_durasi[0], pilihan_harga[0]);
+	printf("| 2. |   SUV      (Innova,Fortuner,Pajero dll)         |Biasa ajh tambah Rp.%d, | %d menit  |     Rp. %d     |\n",pilihan_harga_cuci1[1],pilihan_durasi[1], pilihan_harga[1]);
+	printf("| 3. |   Roda Dua (Sepeda motor dll)                   |Biasa ajh tambah Rp.%d, | %d menit  |    Rp. %d      |\n",pilihan_harga_cuci1[1],pilihan_durasi[2], pilihan_harga[2]);
+	printf("| 4. |   Big  car (Bus,truck,container dll             |Biasa ajh tambah Rp.%d  | %d menit  |    Rp. %d      |\n",pilihan_harga_cuci1[1],pilihan_durasi[3], pilihan_harga[3]);
+	printf("|=============================================================================================================\n");
+    printf("| 5. |   Mini car (Avanza,kayla,brio dll)              |   Premium  Rp.%d       | %d menit  |    Rp. %d      |\n",pilihan_harga_cuci2[1],pilihan_durasi[4], pilihan_harga[4]);
+	printf("| 6. |   SUV      (Innova,Fortuner,Pajero dll)         |   Premium  Rp.%d       | %d menit  |    Rp. %d      |\n",pilihan_harga_cuci2[1],pilihan_durasi[5], pilihan_harga[5]);
+	printf("| 7. |   Roda Dua (Sepeda motor dll)                   |   Premium  Rp.%d       | %d menit  |    Rp. %d      |\n",pilihan_harga_cuci2[1],pilihan_durasi[6], pilihan_harga[6]);
+	printf("| 8. |   Big  car (Bus,truck,container dll             |   Premium  Rp.%d       | %d menit  |    Rp. %d      |\n",pilihan_harga_cuci2[1],pilihan_durasi[7], pilihan_harga[7]);
+
 	
    
 	do{
 		printf("\n");
-		printf("Pilih Jenis Kendaraan (1-4) : ");
+		printf("Pilih Jenis Kendaraan (1-8) : ");
 		scanf("%d", &pilihan_jenis_kendaraan);
 
-		if((pilihan_jenis_kendaraan < 0) || (pilihan_jenis_kendaraan > 4)){ // JIKA INPUTAN KURANG DARI 0 ATAU LEBIH DARI 3 MAKA KELUAR ALERT
-			printf("Inputan Salah ! Pilihan diantara 1 - 4, silahkan input lagi.\n\n");
+		if((pilihan_jenis_kendaraan < 0) || (pilihan_jenis_kendaraan > 8)){ // JIKA INPUTAN KURANG DARI 0 ATAU LEBIH DARI 3 MAKA KELUAR ALERT
+			printf("Inputan Salah ! Pilihan diantara 1 - 8, silahkan input lagi.\n\n");
 		}
-	}while((pilihan_jenis_kendaraan < 0) || (pilihan_jenis_kendaraan > 4));
+	}while((pilihan_jenis_kendaraan < 0) || (pilihan_jenis_kendaraan > 8));
 
 	return pilihan_jenis_kendaraan;
+	
+	
 }
 // FUNCTION UNTUK MENAMPILKAN PILIHAN JENIS KENDARAAN - END
 
-
-
+//int jenis_cuci(){
+//	int pilihan_jenis_cuci;
+//	printf("\n");
+//	printf("\n");
+//	printf("|===============================================================================|\n");
+//	printf("|                             JENIS CUCI                                   |\n");
+//	printf("|===============================================================================|\n");
+//	printf("| NO |       JENIS CUCI KENDARAAN      |  HARGA TAMBAHAN   |                       \n");
+//	printf("| 1. |            Ekonomi              |      Rp. %d       | \n",pilihan_harga_cuci[0]);
+//	printf("| 2. |            Ekskutif             |      Rp. %d       | \n",pilihan_harga_cuci[1]);
+//	printf("| 3. |            Elit                 |      Rp. %d       | \n",pilihan_harga_cuci[2]);
+//	printf("| 4. |            Mewah                |      Rp. %d       | \n",pilihan_harga_cuci[3]);
+//	printf("|========================== Tekan 0 untuk kembali ===============================\n");
+//	
+//	
+//   
+//	do{
+//		printf("\n");
+//		printf("Pilih Jenis Cuci (1-4) : ");
+//		scanf("%d", &pilihan_jenis_cuci);
+//
+//		if((pilihan_jenis_cuci< 0) || (pilihan_jenis_cuci > 4)){ // JIKA INPUTAN KURANG DARI 0 ATAU LEBIH DARI 3 MAKA KELUAR ALERT
+//			printf("Inputan Salah ! Pilihan diantara 1 - 4, silahkan input lagi.\n\n");
+//		}
+//	}while((pilihan_jenis_cuci < 0) || (pilihan_jenis_cuci > 4));
+//
+//	return pilihan_jenis_cuci;
+//}
 // FUNCTION UNTUK PROSES MENGELUARKAN KENDARAAN BERDASARKAN TEMPAT CUCI
 void keluarkan(int tanda_tempat, char no_plat[]){
 	antrian_cuci *tempat1,*tempat2; 
@@ -778,7 +848,7 @@ void skip_waktu_berjalan(int m){
 
 
 // FUNCTION UNTUK SIMULASI PENCUCIAN MOBIL DENGAN DURASI YANG SUDAH DI SET DI VARIABEL GLOBAL
-void simulasi_waktu(){
+void simulasi_waktu(){ //procedur simulasi waktu
 	pukul_waktu += durasi_simulasi;
 
 	if(tempat_cuci_1 != NULL){
@@ -827,7 +897,7 @@ void cek_sisawaktu_cuci(){
 			dequeue(0);
 
 			if(tempat_cuci_1 != NULL){
-				tempat_cuci_1->waktu_proses = pukul_waktu;
+				tempat_cuci_1->waktu_in = pukul_waktu;
 				tempat_cuci_1->waktu_out = pukul_waktu + tempat_cuci_1->durasi;
 			}
 		}
@@ -838,7 +908,7 @@ void cek_sisawaktu_cuci(){
 			dequeue(1);
 
 			if(tempat_cuci_2 != NULL){
-				tempat_cuci_2->waktu_proses = pukul_waktu;
+				tempat_cuci_2->waktu_in = pukul_waktu;
 				tempat_cuci_2->waktu_out = pukul_waktu + tempat_cuci_2->durasi;
 			}
 		}
@@ -857,6 +927,7 @@ void dequeue(int pilih){
 	switch(pilih){
 		case 0:
 			hitung_total(tempat_cuci_1->golongan);
+			hitung_total(tempat_cuci_1->pil_jenis_cuci);
 			hitung_total_by_tempat_cuci(pilih, tempat_cuci_1->golongan);
 			tempat = tempat_cuci_1;
 			tampil_laporan_semua(tempat); // generate laporan
@@ -867,6 +938,7 @@ void dequeue(int pilih){
 
 		case 1:
 			hitung_total(tempat_cuci_2->golongan);
+			hitung_total(tempat_cuci_1->pil_jenis_cuci);
 			hitung_total_by_tempat_cuci(pilih, tempat_cuci_2->golongan);
 			tempat = tempat_cuci_2;
 			tampil_laporan_semua(tempat); // generate laporan
@@ -885,26 +957,53 @@ void hitung_total(int pilih){
 	switch(pilih){
 		case 1:
 			jumlah_kendaraan++;
-			jumlah_waktu += pilihan_durasi[0];
-			jumlah_harga += pilihan_harga[0];
+			jumlah_waktu += pilihan_durasi[0] + pilihan_durasi1[1];
+			jumlah_harga += pilihan_harga[0] + pilihan_harga_cuci1[1];
 			break;
 
 		case 2:
 			jumlah_kendaraan++;
-			jumlah_waktu += pilihan_durasi[1];
-			jumlah_harga += pilihan_harga[1];
+			jumlah_waktu += pilihan_durasi[1] + pilihan_durasi1[1];
+			jumlah_harga += pilihan_harga[1] + pilihan_harga_cuci1[1];
 			break;
 
 		case 3:
 			jumlah_kendaraan++;
-			jumlah_waktu += pilihan_durasi[2];
-			jumlah_harga += pilihan_harga[2];
+			jumlah_waktu += pilihan_durasi[2] + pilihan_durasi1[1];
+			jumlah_harga += pilihan_harga[2] + pilihan_harga_cuci1[1];
 			break;
 		case 4:
 			jumlah_kendaraan++;
-			jumlah_waktu += pilihan_durasi[3];
-			jumlah_harga += pilihan_harga[3];
+			jumlah_waktu += pilihan_durasi[3] + pilihan_durasi1[1];
+			jumlah_harga += pilihan_harga[3] + pilihan_harga_cuci1[1];
 			break;
+			
+//
+			
+		case 5:
+			jumlah_kendaraan++;
+			jumlah_waktu += pilihan_durasi[4] + pilihan_durasi2[1];
+			jumlah_harga += pilihan_harga[4] + pilihan_harga_cuci2[1];
+			break;
+
+		case 6:
+			jumlah_kendaraan++;
+			jumlah_waktu += pilihan_durasi[5] + pilihan_durasi2[1];
+			jumlah_harga += pilihan_harga[5] + pilihan_harga_cuci2[1];
+			break;
+
+		case 7:
+			jumlah_kendaraan++;
+			jumlah_waktu += pilihan_durasi[6] + pilihan_durasi2[1];
+			jumlah_harga += pilihan_harga[6] + pilihan_harga_cuci2[1];
+			break;
+			
+		case 8:
+			jumlah_kendaraan++;
+			jumlah_waktu += pilihan_durasi[7] + pilihan_durasi2[1];
+			jumlah_harga += pilihan_harga[7] + pilihan_harga_cuci2[1];
+			break;
+	
 	}
 }
 // FUNCTION UNTUK MENGHITUNG TOTAL KENDARAAN YANG SUDAH DI CUCI DAN JUGA TOTAL DURASI PENCUCIANNYA - END
@@ -914,28 +1013,61 @@ void hitung_total_by_tempat_cuci(int pilih_cuci, int pilih_golongan){
 	switch(pilih_golongan){
 		case 1:
 			jumlah_kendaraan_by_tempat_cuci[pilih_cuci]++;
-			jumlah_waktu_by_tempat_cuci[pilih_cuci] += pilihan_durasi[0];
-			jumlah_harga_by_tempat_cuci[pilih_cuci] += pilihan_harga[0];
+			jumlah_waktu_by_tempat_cuci[pilih_cuci] += pilihan_durasi[0] + pilihan_durasi1[1];
+			jumlah_harga_by_tempat_cuci[pilih_cuci] += pilihan_harga[0] + pilihan_harga_cuci1[1];
+		
 			break;
 
 		case 2:
 			jumlah_kendaraan_by_tempat_cuci[pilih_cuci]++;
-			jumlah_waktu_by_tempat_cuci[pilih_cuci] += pilihan_durasi[1];
-			jumlah_harga_by_tempat_cuci[pilih_cuci] += pilihan_harga[1];
+			jumlah_waktu_by_tempat_cuci[pilih_cuci] += pilihan_durasi[1] + pilihan_durasi1[1];
+			jumlah_harga_by_tempat_cuci[pilih_cuci] += pilihan_harga[1] + pilihan_harga_cuci1[1];
+			
 			break;
 
 		case 3:
 			jumlah_kendaraan_by_tempat_cuci[pilih_cuci]++;
-			jumlah_waktu_by_tempat_cuci[pilih_cuci] += pilihan_durasi[2];
-			jumlah_harga_by_tempat_cuci[pilih_cuci] += pilihan_harga[2];
+			jumlah_waktu_by_tempat_cuci[pilih_cuci] += pilihan_durasi[2] + pilihan_durasi1[1];
+			jumlah_harga_by_tempat_cuci[pilih_cuci] += pilihan_harga[2] + pilihan_harga_cuci1[1];
+			
 			break;
 			
 	   case 4:  
 			jumlah_kendaraan_by_tempat_cuci[pilih_cuci]++;
-			jumlah_waktu_by_tempat_cuci[pilih_cuci] += pilihan_durasi[3];
-			jumlah_harga_by_tempat_cuci[pilih_cuci] += pilihan_harga[3];
+			jumlah_waktu_by_tempat_cuci[pilih_cuci] += pilihan_durasi[3] + pilihan_durasi1[1];
+			jumlah_harga_by_tempat_cuci[pilih_cuci] += pilihan_harga[3] + pilihan_harga_cuci1[1];
 			break;
-	}
+
+//			
+			
+		case 5:
+			jumlah_kendaraan_by_tempat_cuci[pilih_cuci]++;
+			jumlah_waktu_by_tempat_cuci[pilih_cuci] += pilihan_durasi[4] + pilihan_durasi2[1];
+			jumlah_harga_by_tempat_cuci[pilih_cuci] += pilihan_harga[4] + pilihan_harga_cuci2[1];
+		
+			break;
+
+		case 6:
+			jumlah_kendaraan_by_tempat_cuci[pilih_cuci]++;
+			jumlah_waktu_by_tempat_cuci[pilih_cuci] += pilihan_durasi[5] + pilihan_durasi2[1];
+			jumlah_harga_by_tempat_cuci[pilih_cuci] += pilihan_harga[5] + pilihan_harga_cuci2[1];
+			
+			break;
+
+		case 7:
+			jumlah_kendaraan_by_tempat_cuci[pilih_cuci]++;
+			jumlah_waktu_by_tempat_cuci[pilih_cuci] += pilihan_durasi[6] + pilihan_durasi2[1];
+			jumlah_harga_by_tempat_cuci[pilih_cuci] += pilihan_harga[6] + pilihan_harga_cuci2[1];
+			break;
+		case 8:
+			jumlah_kendaraan_by_tempat_cuci[pilih_cuci]++;
+			jumlah_waktu_by_tempat_cuci[pilih_cuci] += pilihan_durasi[7] + pilihan_durasi2[1];
+			jumlah_harga_by_tempat_cuci[pilih_cuci] += pilihan_harga[7] + pilihan_harga_cuci2[1];
+			
+			break;
+			
+	  
+}
 }
 // FUNCTION UNTUK MENGHITUNG TOTAL KENDARAAN YANG SUDAH DI CUCI DAN JUGA TOTAL DURASI PENCUCIANNYA BERDASARKAN TEMPAT CUCINYA - END
 
@@ -948,7 +1080,7 @@ void pra_enqueue(char no_plat[], int golongan){
 	
 	if(data_inputan == NULL){ // JIKA VARIABEL data_inputan NULL, BERARTI TIDAK ADA 1 PUN ELEMEN DALAM LIST ATAU ALOKASI GAGAL DILAKUKAN, MAKA AKAN KELUAR ALERT
 		printf("\n");
-		printf("ERROR! Tidak tersedia memori\n");
+		printf("Memori penyimpanan anda tidak cukup ! \n");
 	}else{
 		strcpy(data_inputan->nopol,no_plat); // INPUT NOPOL KENDARAAN KE LIST BARU
 		data_inputan->next = NULL; // LIST data_inputan->next MENUNJUK NULL
@@ -956,31 +1088,61 @@ void pra_enqueue(char no_plat[], int golongan){
 		switch(golongan){
 			case 1:
 				data_inputan->golongan = 1;
-				data_inputan->durasi = pilihan_durasi[0];
-				data_inputan->harga = pilihan_harga[0];
+				data_inputan->durasi = pilihan_durasi[0] + pilihan_durasi1[1];
+				data_inputan->harga = pilihan_harga[0] + pilihan_harga_cuci1[1];
 				data_inputan->waktu_in = pukul_waktu;
 				break;
 
 			case 2:
 				data_inputan->golongan = 2;
-				data_inputan->durasi = pilihan_durasi[1];
-				data_inputan->harga = pilihan_harga[1];
+				data_inputan->durasi = pilihan_durasi[1] + pilihan_durasi1[1];
+				data_inputan->harga = pilihan_harga[1] + pilihan_harga_cuci1[1];
 				data_inputan->waktu_in = pukul_waktu;
 				break;
 
 			case 3:
 				data_inputan->golongan = 3;
-				data_inputan->durasi = pilihan_durasi[2];
-				data_inputan->harga = pilihan_harga[2];	
+				data_inputan->durasi = pilihan_durasi[2] + pilihan_durasi1[1];
+				data_inputan->harga = pilihan_harga[2] + pilihan_harga_cuci1[1];
 				data_inputan->waktu_in = pukul_waktu;	
 				break;
 				
 			case 4:
 				data_inputan->golongan = 4;
-				data_inputan->durasi = pilihan_durasi[3];
-				data_inputan->harga = pilihan_harga[3];	
+				data_inputan->durasi = pilihan_durasi[3] + pilihan_durasi1[1];
+				data_inputan->harga = pilihan_harga[3] + pilihan_harga_cuci1[1];
 				data_inputan->waktu_in = pukul_waktu;	
 				break;	
+			case 5:
+				data_inputan->golongan = 5;
+				data_inputan->durasi = pilihan_durasi[4] + pilihan_durasi2[1];
+				data_inputan->harga = pilihan_harga[4] + pilihan_harga_cuci2[1];
+				data_inputan->waktu_in = pukul_waktu;
+				break;
+
+			case 6:
+				data_inputan->golongan = 6;
+				data_inputan->durasi = pilihan_durasi[5] + pilihan_durasi2[1];
+				data_inputan->harga = pilihan_harga[5] + pilihan_harga_cuci2[1];
+				data_inputan->waktu_in = pukul_waktu;
+				break;
+
+			case 7:
+				data_inputan->golongan = 7;
+				data_inputan->durasi = pilihan_durasi[6] + pilihan_durasi2[1];
+				data_inputan->harga = pilihan_harga[6] + pilihan_harga_cuci2[1];
+				data_inputan->waktu_in = pukul_waktu;	
+				break; 
+				
+			case 8:
+				data_inputan->golongan = 8;
+				data_inputan->durasi = pilihan_durasi[7] + pilihan_durasi2[1];
+				data_inputan->harga = pilihan_harga[7] + pilihan_harga_cuci2[1];
+				data_inputan->waktu_in = pukul_waktu;	
+				break;
+			
+			
+		
 		}
 	}
 	
@@ -1012,12 +1174,18 @@ void hitung_durasi(){
 	jumlah_durasi[0] = 0;
 	jumlah_durasi[1] = 0;
 	jumlah_durasi[2] = 0;
+
+	
+
 	
 	if(tempat_cuci_1 == NULL){
 		jumlah_durasi[0] = 0;
 	}else{
 		while(tempat1 != NULL){
 			jumlah_durasi[0] += tempat1->durasi;
+			jumlah_durasi[1] += tempat1->durasi;
+			
+			
 			tempat1 = tempat1->next;
 		}	
 	}
@@ -1037,11 +1205,17 @@ void hitung_durasi(){
 // FUNCTION UNTUK PROSES PENENTUAN TEMPAT CUCI MOBIL
 int pilih_tempat_cuci(){
 	int c, d, swap;
-	int jumlah_durasi_asc[2];
+	int jumlah_durasi_asc[7];
 
 	jumlah_durasi_asc[0] = jumlah_durasi[0];
 	jumlah_durasi_asc[1] = jumlah_durasi[1];
 	jumlah_durasi_asc[2] = jumlah_durasi[2];
+	jumlah_durasi_asc[3] = jumlah_durasi[3];
+	jumlah_durasi_asc[4] = jumlah_durasi[4];
+	jumlah_durasi_asc[5] = jumlah_durasi[5];
+	jumlah_durasi_asc[6] = jumlah_durasi[6];
+	jumlah_durasi_asc[7] = jumlah_durasi[7];
+	
 	
         
 	for (d = 0; d < 1; d++){            
@@ -1071,7 +1245,7 @@ void enqueue_proses(antrian_cuci *data_inputan, antrian_cuci *tempat, int piliha
 	antrian_cuci *data_inputan_langsung_cuci;
 
 	data_inputan_langsung_cuci = data_inputan;
-	data_inputan_langsung_cuci->waktu_proses = pukul_waktu;
+	data_inputan_langsung_cuci->waktu_in = pukul_waktu;
 	data_inputan_langsung_cuci->waktu_out = pukul_waktu + data_inputan->durasi;
 	
 	if(tempat == NULL){
@@ -1161,7 +1335,7 @@ void tampil_laporan_semua(antrian_cuci *tempat)
 
 	// PROSES MEMASUKAN DATA KE CSV FILE
 	int hitung_durasi_by_jenis; 
-	hitung_durasi_by_jenis =  tempat->waktu_out - tempat->waktu_proses;
+	hitung_durasi_by_jenis =  tempat->waktu_out - tempat->waktu_in;
 	sprintf(baris,"%s,%d,%d Menit,Rp.%d\n",tempat->nopol, tempat->golongan,hitung_durasi_by_jenis, tempat->harga);
 	fputs(baris,f_txt);
 	
@@ -1193,7 +1367,7 @@ void tampil_laporan_semua_tempat_cuci_1(antrian_cuci *tempat)
 
 	// PROSES MEMASUKAN DATA KE CSV FILE
 	int hitung_durasi_by_jenis; 
-	hitung_durasi_by_jenis =  tempat->waktu_out - tempat->waktu_proses;
+	hitung_durasi_by_jenis =  tempat->waktu_out - tempat->waktu_in;
 	sprintf(baris,"%s,%d,%d Menit,Rp.%d\n",tempat->nopol, tempat->golongan, hitung_durasi_by_jenis, tempat->harga);
 	printf("\n");
 	fputs(baris,f_txt);
@@ -1226,7 +1400,7 @@ void tampil_laporan_semua_tempat_cuci_2(antrian_cuci *tempat)
 
 	// PROSES MEMASUKAN DATA KE CSV FILE
 	int hitung_durasi_by_jenis; 
-	hitung_durasi_by_jenis =  tempat->waktu_out - tempat->waktu_proses;
+	hitung_durasi_by_jenis =  tempat->waktu_out - tempat->waktu_in;
 	sprintf(baris,"%s,%d,%d Menit,Rp.%d\n",tempat->nopol, tempat->golongan, hitung_durasi_by_jenis, tempat->harga);
 	printf("\n");
 	fputs(baris,f_txt);
@@ -1309,7 +1483,7 @@ void hapushistoriall(){
    char confirm = '\0';
 
    while (confirm != 'y' && confirm != 'Y' && confirm != 'n' && confirm != 'N') {
-      printf("Yakin ingin menghapus data ini? (y/n): ");
+      printf("Yakin ingin menghapus History Transaksi Keseluruhan ? (y/n): ");
       scanf(" %c", &confirm);
    }
 
@@ -1328,7 +1502,7 @@ void hapushistoritempat1(){
    char confirm = '\0';
 
    while (confirm != 'y' && confirm != 'Y' && confirm != 'n' && confirm != 'N') {
-      printf("Yakin ingin menghapus data ini? (y/n): ");
+      printf("Yakin ingin menghapus History Transaksi Tempat 1? (y/n): ");
       scanf(" %c", &confirm);
    }
 
@@ -1347,7 +1521,7 @@ void hapushistoritempat2(){
    char confirm = '\0';
 
    while (confirm != 'y' && confirm != 'Y' && confirm != 'n' && confirm != 'N') {
-      printf("Yakin ingin menghapus data ini? (y/n): ");
+      printf("Yakin ingin menghapus History Transaksi Tempat 2? (y/n): ");
       scanf(" %c", &confirm);
    }
 
@@ -1410,6 +1584,18 @@ void hapushistoritempat2(){
 //}
 
 // MODUL UNTUK MENAMPILKAN RINGKASAN TOTAL TRANSAKSI
+void tutup()
+{
+	
+
+	printf("\n");
+	printf("Tempat cuci kendaraan ini telah tutup\n\n");
+
+
+
+	exit(1);
+}
+
 void out()
 {
 	

@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_NAME_LENGTH 50
+#define MAX_AGE_LENGTH 3
+#define MAX_ADDRESS_LENGTH 100
+
+// Define the structure of the table row
+struct person {
+    char name[MAX_NAME_LENGTH];
+    int age;
+    char address[MAX_ADDRESS_LENGTH];
+};
+
+int main() {
+    // Open the file for reading
+    FILE *fp = fopen("data.txt", "r");
+    if (fp == NULL) {
+        fprintf(stderr, "Error: Could not open file\n");
+        exit(1);
+    }
+
+    // Read and print the table header
+    char header[100];
+    fgets(header, 100, fp);
+    printf("%s", header);
+
+    // Read and print each row in the table
+    struct person p;
+    while (fscanf(fp, "%s %d %[^\n]", p.name, &p.age, p.address) == 3) {
+        printf("%s %d %s\n", p.name, p.age, p.address);
+    }
+
+    // Close the file
+    fclose(fp);
+
+    return 0;
+}
